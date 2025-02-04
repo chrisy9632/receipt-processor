@@ -1,5 +1,4 @@
 import { BigNumber } from "bignumber.js";
-
 import { Receipt } from "./types";
 
 type RewardRuleFunc = (receipt: Receipt) => number;
@@ -37,11 +36,11 @@ function retailerNamePoint({ retailer }: Receipt) {
 }
 
 function totalIsRoundDollarPoint({ total }: Receipt) {
-  return total.mod(1).isZero() ? 50 : 0;
+  return total.gt(0) && total.mod(1).isZero() ? 50 : 0;
 }
 
 function quarterMultiplePoint({ total }: Receipt) {
-  return total.mod(0.25).isZero() ? 25 : 0;
+  return total.gt(0) && total.mod(0.25).isZero() ? 25 : 0;
 }
 
 function twoItemsPoint({ items }: Receipt) {
